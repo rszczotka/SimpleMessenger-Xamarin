@@ -25,10 +25,6 @@ namespace SimpleMessenger
             _databaseService = new DatabaseService();
             await _databaseService.InitializeDatabase();
 
-           await _databaseService.RemoveContact(3);
-
-            
-
             LoadContacts();
         }
 
@@ -45,16 +41,10 @@ namespace SimpleMessenger
                 ContactListView.ItemsSource = contacts;
             }
         }
-        //private async void AddNewContact(object sender, EventArgs e)
-        private async void AddNewContact(string FirstName, string LastName)
+
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            Contact newContact = new Contact();
-            newContact.FirstName = FirstName;
-            newContact.LastName = LastName;
-
-            await _databaseService.AddContact(newContact);
-
-            LoadContacts();
+            await Navigation.PushAsync(new AddContactPage());
         }
     }
 
