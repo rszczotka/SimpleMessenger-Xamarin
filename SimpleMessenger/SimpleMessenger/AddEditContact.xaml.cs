@@ -22,10 +22,12 @@ namespace SimpleMessenger
             {
                 FillContactDetails(userId);
                 userIdEntry.Text = userId.ToString();
+                this.Title = "Edit Contact";
             }
             else
             {
                 userIdEntry.Text = "0";
+                this.Title = "Add Contact";
             }
         }
         private async void InitializeAsync()
