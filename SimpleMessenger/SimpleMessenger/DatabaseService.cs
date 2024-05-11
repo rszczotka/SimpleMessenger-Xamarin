@@ -36,5 +36,9 @@ public class DatabaseService
     {
         return await _connection.Table<Contact>().ToListAsync();
     }
+    public async Task<Contact> GetContactById(int userId)
+    {
+        return await _connection.Table<Contact>().Where(c => c.Id == userId).FirstOrDefaultAsync();
+    }
 
 }

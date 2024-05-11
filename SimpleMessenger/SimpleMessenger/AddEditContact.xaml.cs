@@ -10,20 +10,33 @@ using Xamarin.Forms.Xaml;
 namespace SimpleMessenger
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddContactPage : ContentPage
+    public partial class AddEditContactPage : ContentPage
     {
         private DatabaseService _databaseService;
 
-        public AddContactPage()
+        public AddEditContactPage(int userId = 0)
         {
             InitializeComponent();
             InitializeAsync();
+            if (userId != 0)
+            {
+                FillContactDetails(userId);
+            }
         }
         private async void InitializeAsync()
         {
             _databaseService = new DatabaseService();
             await _databaseService.InitializeDatabase();
         }
+
+        private async void FillContactDetails(int userId)
+        {
+            Contact contact = await _databaseService.GetContactById(userId);
+            firstNameEntry.Text = contact.FirstName;
+            lastNameEntry.Text = contact.LastName;
+        }
+
+
 
         private async void SaveContactButton_OnClicked(object sender, EventArgs e)
         {

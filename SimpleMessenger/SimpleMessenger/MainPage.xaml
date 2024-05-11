@@ -7,11 +7,16 @@
             <ListView x:Name="ContactListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding FullName}" />
+                        <TextCell Text="{Binding FullName}">
+                            <TextCell.ContextActions>
+                                <MenuItem Text="Edit" Clicked="EditContactButton_Clicked" CommandParameter="{Binding .}" />
+                                <MenuItem Text="Delete" Clicked="DeleteContactButton_Clicked" CommandParameter="{Binding .}" IsDestructive="True" />
+                            </TextCell.ContextActions>
+                        </TextCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Add Contact" Clicked="Button_Clicked" WidthRequest="100" HeightRequest="20" />
+            <Button Text="Add Contact" Clicked="AddNewContactButton_Clicked" WidthRequest="100" HeightRequest="20" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

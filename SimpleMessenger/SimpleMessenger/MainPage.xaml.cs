@@ -42,9 +42,32 @@ namespace SimpleMessenger
             }
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void AddNewContactButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddContactPage());
+            var addEditContactPage = new AddEditContactPage();
+            addEditContactPage.Disappearing += (s, args) => LoadContacts();
+            await Navigation.PushAsync(addEditContactPage);
+        }
+        private async void EditContactButton_Clicked(object sender, EventArgs e)
+        {
+            // Edit the contact
+            var menuItem = sender as MenuItem;
+            var contact = menuItem.CommandParameter as Contact;
+            var addEditContactPage = new AddEditContactPage(contact.Id);
+            addEditContactPage.Disappearing += (s, args) => LoadContacts();
+            await Navigation.PushAsync(addEditContactPage);
+        }
+        private async void DeleteContactButton_Clicked(object sender, EventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            var contact = menuItem.CommandParameter as Contact;
+            bool answer = await DisplayAlert("Delete Contact", $"Are you sure you want to delete {contact.FirstName}?", "OK", "Cancel");
+            if (answer)
+            {
+                // Delete the contact
+                await _databaseService.RemoveContact(contact.Id);
+                LoadContacts();
+            }
         }
     }
 
