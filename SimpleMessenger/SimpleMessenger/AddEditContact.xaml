@@ -4,6 +4,7 @@
              x:Class="SimpleMessenger.AddEditContactPage">
     <ContentPage.Content>
         <StackLayout Padding="20">
+            <Entry x:Name="userIdEntry" IsVisible="False"/>
             <Entry x:Name="firstNameEntry" Placeholder="First Name" />
             <Entry x:Name="lastNameEntry" Placeholder="Last Name" />
             <Button x:Name="saveButton" Text="Save" Clicked="SaveContactButton_OnClicked" />

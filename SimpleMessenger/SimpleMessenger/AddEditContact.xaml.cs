@@ -21,6 +21,11 @@ namespace SimpleMessenger
             if (userId != 0)
             {
                 FillContactDetails(userId);
+                userIdEntry.Text = userId.ToString();
+            }
+            else
+            {
+                userIdEntry.Text = "0";
             }
         }
         private async void InitializeAsync()
@@ -40,14 +45,27 @@ namespace SimpleMessenger
 
         private async void SaveContactButton_OnClicked(object sender, EventArgs e)
         {
-            var contact = new Contact
+            if (userIdEntry.Text != "0")
             {
-                FirstName = firstNameEntry.Text,
-                LastName = lastNameEntry.Text
-            };
+                var contact = new Contact
+                {
+                    Id = Convert.ToInt32(userIdEntry.Text),
+                    FirstName = firstNameEntry.Text,
+                    LastName = lastNameEntry.Text
+                };
+                await _databaseService.EditContact(contact);
+            }
+            else
+            {
+                var contact = new Contact
+                {
+                    FirstName = firstNameEntry.Text,
+                    LastName = lastNameEntry.Text
+                };
+                await _databaseService.AddContact(contact);
 
 
-            await _databaseService.AddContact(contact);
+            }
             await Navigation.PopAsync();
         }
     }
