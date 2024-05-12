@@ -42,6 +42,17 @@ namespace SimpleMessenger
             }
         }
 
+        private async void OnContactTapped(object sender, ItemTappedEventArgs e)
+        {
+            var contact = e.Item as Contact;
+            if (contact != null)
+            {
+                var ChatPage = new ChatPage(contact);
+                ChatPage.Disappearing += (s, args) => LoadContacts();
+                await Navigation.PushAsync(ChatPage);
+            }
+        }
+
         private async void AddNewContactButton_Clicked(object sender, EventArgs e)
         {
             var addEditContactPage = new AddEditContactPage();

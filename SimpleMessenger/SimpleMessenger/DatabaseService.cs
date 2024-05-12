@@ -18,6 +18,7 @@ public class DatabaseService
     public async Task InitializeDatabase()
     {
         await _connection.CreateTableAsync<Contact>();
+        await _connection.CreateTableAsync<Message>();
     }
 
     public async Task AddContact(Contact contact)
@@ -50,5 +51,22 @@ public class DatabaseService
     {
         return await _connection.Table<Contact>().Where(c => c.Id == userId).FirstOrDefaultAsync();
     }
+    public async Task<List<Message>> GetChatHistory(int userId)
+    {
+        return await _connection.Table<Message>().Where(m => m.ReceiverId == userId || m.SenderId == userId).ToListAsync();
+    }
+    public async Task FillTestChatHistory()
+    {
+        var messages = new List<Message>
+        {
+            new Message { Text = "Hello", Date = DateTime.Now, SenderId = 1, ReceiverId = 2 },
+            new Message { Text = "Hi", Date = DateTime.Now, SenderId = 2, ReceiverId = 1 },
+            new Message { Text = "How are you?", Date = DateTime.Now, SenderId = 1, ReceiverId = 2 },
+            new Message { Text = "I'm fine, thank you", Date = DateTime.Now, SenderId = 2, ReceiverId = 1 },
+            new Message { Text = "Goodbye", Date = DateTime.Now, SenderId = 1, ReceiverId = 2 },
+            new Message { Text = "Bye", Date = DateTime.Now, SenderId = 2, ReceiverId = 1 }
+        };
 
+        await _connection.InsertAllAsync(messages);
+    }
 }

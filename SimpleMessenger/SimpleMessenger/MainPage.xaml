@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Simple Messenger"
              x:Class="SimpleMessenger.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Dodaj kontakt" Clicked="AddNewContactButton_Clicked" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="ContactListView" HasUnevenRows="True" SelectionMode="None">
+            <ListView x:Name="ContactListView" HasUnevenRows="True" SelectionMode="None" ItemTapped="OnContactTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding FullName}">
@@ -17,7 +20,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Add Contact" Clicked="AddNewContactButton_Clicked" WidthRequest="100" HeightRequest="20" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

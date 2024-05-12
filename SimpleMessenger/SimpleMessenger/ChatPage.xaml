@@ -2,11 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SimpleMessenger.ChatPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="IncomingDataTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="Start">
+                        <Frame BorderColor="Blue" Padding="10" CornerRadius="10">
+                            <Label Text="{Binding Text}" />
+                        </Frame>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="OutgoingDataTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="End">
+                        <Frame BorderColor="Green" Padding="10" CornerRadius="10">
+                            <Label Text="{Binding Text}" />
+                        </Frame>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ListView x:Name="MessageListView" 
+          ItemTemplate="{StaticResource MessageTemplateSelector}">
+    </ListView>
 </ContentPage>

@@ -14,7 +14,7 @@ namespace SimpleMessenger
         {
             get
             {
-                return $"{FirstName} {LastName}";
+                return $" {Id} {FirstName} {LastName}";
             }
         }
     }
