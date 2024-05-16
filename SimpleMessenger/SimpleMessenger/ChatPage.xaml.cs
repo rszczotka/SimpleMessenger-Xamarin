@@ -19,8 +19,6 @@ namespace SimpleMessenger
             InitializeComponent();
             InitializeAsync();
             LoadMessages(contact);
-
-
         }
         private async void InitializeAsync()
         {
@@ -31,21 +29,21 @@ namespace SimpleMessenger
         private async void LoadMessages(Contact contact)
         {
             var messages = await _databaseService.GetChatHistory(contact.Id);
-
-            if (messages.Count == 0)
-            {
-                MessageListView.ItemsSource = new List<string> { "No messages found" };
-            }
-            else
-            {
-                MessageListView.ItemTemplate = new MessageTemplateSelector
-                {
-                    IncomingDataTemplate = (DataTemplate)Resources["IncomingDataTemplate"],
-                    OutgoingDataTemplate = (DataTemplate)Resources["OutgoingDataTemplate"]
-                };
-
-            }
+            MessageListView.ItemsSource = messages;
+            NoMessagesLabel.IsVisible = !messages.Any();
         }
 
+        private void EditMessageButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
+        private void DeleteMessageButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

@@ -13,8 +13,8 @@
                     <DataTemplate>
                         <TextCell Text="{Binding FullName}">
                             <TextCell.ContextActions>
-                                <MenuItem Text="Edit" Clicked="EditContactButton_Clicked" CommandParameter="{Binding .}" />
-                                <MenuItem Text="Delete" Clicked="DeleteContactButton_Clicked" CommandParameter="{Binding .}" IsDestructive="True" />
+                                <MenuItem Text="Edytuj" Clicked="EditContactButton_Clicked" CommandParameter="{Binding .}" />
+                                <MenuItem Text="Usuń" Clicked="DeleteContactButton_Clicked" CommandParameter="{Binding .}" IsDestructive="True" />
                             </TextCell.ContextActions>
                         </TextCell>
                     </DataTemplate>

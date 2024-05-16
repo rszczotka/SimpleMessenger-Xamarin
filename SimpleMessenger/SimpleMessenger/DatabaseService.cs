@@ -59,14 +59,18 @@ public class DatabaseService
     {
         var messages = new List<Message>
         {
-            new Message { Text = "Hello", Date = DateTime.Now, SenderId = 1, ReceiverId = 2 },
-            new Message { Text = "Hi", Date = DateTime.Now, SenderId = 2, ReceiverId = 1 },
-            new Message { Text = "How are you?", Date = DateTime.Now, SenderId = 1, ReceiverId = 2 },
-            new Message { Text = "I'm fine, thank you", Date = DateTime.Now, SenderId = 2, ReceiverId = 1 },
-            new Message { Text = "Goodbye", Date = DateTime.Now, SenderId = 1, ReceiverId = 2 },
-            new Message { Text = "Bye", Date = DateTime.Now, SenderId = 2, ReceiverId = 1 }
+            new Message { Text = "Hello", Date = DateTime.Now, SenderId = 0, ReceiverId = 1 },
+            new Message { Text = "Hi", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 },
+            new Message { Text = "How are you?", Date = DateTime.Now, SenderId = 0, ReceiverId = 1 },
+            new Message { Text = "I'm fine, thank you", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 },
+            new Message { Text = "Goodbye", Date = DateTime.Now, SenderId = 0, ReceiverId = 1 },
+            new Message { Text = "Bye", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 }
         };
 
         await _connection.InsertAllAsync(messages);
+    }
+    public async Task ClearTestChatHistory()
+    {
+        await _connection.DeleteAllAsync<Message>();
     }
 }

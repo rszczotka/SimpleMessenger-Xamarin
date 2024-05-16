@@ -7,8 +7,8 @@ namespace SimpleMessenger
 {
     public class MessageTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate IncomingDataTemplate { get; set; }
-        public DataTemplate OutgoingDataTemplate { get; set; }
+        public DataTemplate OutgoingMessageTemplate { get; set; }
+        public DataTemplate IncomingMessageTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -16,8 +16,7 @@ namespace SimpleMessenger
             if (message == null)
                 return null;
 
-            // Replace "currentUserId" with the ID of the current user
-            return message.SenderId == currentUserId ? OutgoingDataTemplate : IncomingDataTemplate;
+            return message.SenderId == 0 ? OutgoingMessageTemplate : IncomingMessageTemplate;
         }
     }
 

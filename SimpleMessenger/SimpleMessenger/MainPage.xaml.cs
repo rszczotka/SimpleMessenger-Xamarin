@@ -19,6 +19,7 @@ namespace SimpleMessenger
         {
             InitializeComponent();
             InitializeAsync();
+            
         }
         private async void InitializeAsync()
         {
@@ -34,7 +35,7 @@ namespace SimpleMessenger
 
             if (contacts.Count == 0)
             {
-                ContactListView.ItemsSource = new List<string> { "No contacts found" };
+                ContactListView.ItemsSource = new List<string> { "Nie znaleziono kontaktów" };
             }
             else
             {
@@ -72,7 +73,7 @@ namespace SimpleMessenger
         {
             var menuItem = sender as MenuItem;
             var contact = menuItem.CommandParameter as Contact;
-            bool answer = await DisplayAlert("Delete Contact", $"Are you sure you want to delete {contact.FirstName}?", "OK", "Cancel");
+            bool answer = await DisplayAlert("Usuwanie kontaktu", $"Czy jesteś pewien że chcesz usunąć kontakt {contact.FirstName} {contact.LastName}?", "OK", "Anuluj");
             if (answer)
             {
                 // Delete the contact

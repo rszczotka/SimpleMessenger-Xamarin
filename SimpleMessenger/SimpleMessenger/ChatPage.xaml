@@ -1,30 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SimpleMessenger"
              x:Class="SimpleMessenger.ChatPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="IncomingDataTemplate">
+            <DataTemplate x:Key="OutgoingMessageTemplate">
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="Start">
-                        <Frame BorderColor="Blue" Padding="10" CornerRadius="10">
-                            <Label Text="{Binding Text}" />
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Edit" Clicked="EditMessageButton_Clicked" CommandParameter="{Binding .}" />
+                        <MenuItem Text="Delete" Clicked="DeleteMessageButton_Clicked" CommandParameter="{Binding .}" IsDestructive="True" />
+                    </ViewCell.ContextActions>
+                    <StackLayout HorizontalOptions="End" Padding="10">
+                        <Frame BackgroundColor="Green" CornerRadius="20" Padding="10">
+                            <Label Text="{Binding Text}" TextColor="White" />
                         </Frame>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="OutgoingDataTemplate">
+            <DataTemplate x:Key="IncomingMessageTemplate">
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="End">
-                        <Frame BorderColor="Green" Padding="10" CornerRadius="10">
-                            <Label Text="{Binding Text}" />
+                    <StackLayout HorizontalOptions="Start" Padding="10">
+                        <Frame BackgroundColor="Blue" CornerRadius="20" Padding="10">
+                            <Label Text="{Binding Text}" TextColor="White" />
                         </Frame>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+            <local:MessageTemplateSelector x:Key="MessageTemplateSelector"
+                                           OutgoingMessageTemplate="{StaticResource OutgoingMessageTemplate}"
+                                           IncomingMessageTemplate="{StaticResource IncomingMessageTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ListView x:Name="MessageListView" 
-          ItemTemplate="{StaticResource MessageTemplateSelector}">
-    </ListView>
+    <Grid>
+        <ListView x:Name="MessageListView" 
+                  ItemTemplate="{StaticResource MessageTemplateSelector}"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"
+                  ItemSelected="OnItemSelected">
+        </ListView>
+        <Label x:Name="NoMessagesLabel" 
+               Text="Brak historii wiadomości z tym użytkownikiem" 
+               IsVisible="False" 
+               HorizontalOptions="CenterAndExpand" 
+               VerticalOptions="CenterAndExpand" />
+    </Grid>
 </ContentPage>
