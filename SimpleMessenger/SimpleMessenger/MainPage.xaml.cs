@@ -19,7 +19,6 @@ namespace SimpleMessenger
         {
             InitializeComponent();
             InitializeAsync();
-            
         }
         private async void InitializeAsync()
         {
@@ -77,7 +76,7 @@ namespace SimpleMessenger
             if (answer)
             {
                 // Delete the contact
-                await _databaseService.RemoveContact(contact.Id);
+                await _databaseService.DeleteContact(contact.Id);
                 LoadContacts();
             }
         }

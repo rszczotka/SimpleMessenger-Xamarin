@@ -16,7 +16,7 @@ namespace SimpleMessenger
         private Contact _contact;
         public ChatPage(Contact contact)
         {
-            _contact = contact; 
+            _contact = contact;
             this.Title = _contact.FullName;
             InitializeComponent();
             InitializeAsync();
@@ -39,10 +39,17 @@ namespace SimpleMessenger
         {
 
         }
-        private void DeleteMessageButton_Clicked(object sender, EventArgs e)
+        private async void DeleteMessageButton_Clicked(object sender, EventArgs e)
         {
+            var menuItem = (MenuItem)sender;
+            var message = (Message)menuItem.CommandParameter;
+            await DisplayAlert("Message to delete",$"{message.Text} {message.Id.ToString()}", "OK");
 
+            await _databaseService.DeleteMessage(message);
+
+            LoadMessages(_contact);
         }
+
         private async void SendMessageButton_Clicked(object sender, EventArgs e)
         {
             var messageText = MessageEntry.Text;

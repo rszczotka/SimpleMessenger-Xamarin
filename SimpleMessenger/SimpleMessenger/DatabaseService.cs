@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
 
 public class DatabaseService
 {
@@ -11,8 +13,16 @@ public class DatabaseService
 
     public DatabaseService()
     {
-        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Contacts.db3");
+        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SimpleMessenger.db3");
         _connection = new SQLiteAsyncConnection(dbPath);
+    }
+    public void DeleteDatabase()
+    {
+        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SimpleMessenger.db3");
+        if (File.Exists(dbPath))
+        {
+            File.Delete(dbPath);
+        }
     }
 
     public async Task InitializeDatabase()
@@ -35,7 +45,7 @@ public class DatabaseService
             await _connection.UpdateAsync(existingContact);
         }
     }
-    public async Task RemoveContact(int userId)
+    public async Task DeleteContact(int userId)
     {
         var contact = await _connection.Table<Contact>().Where(c => c.Id == userId).FirstOrDefaultAsync();
         if (contact != null)
@@ -59,6 +69,14 @@ public class DatabaseService
     {
         await _connection.InsertAsync(message);
     }
+    public async Task DeleteMessage(Message message)
+    {
+        var found_message = await _connection.Table<Message>().Where(c => c.Id == message.Id).FirstOrDefaultAsync();        
+        if (found_message != null)
+        {
+            await _connection.DeleteAsync(found_message);
+        }
+    }
     public async Task FillTestChatHistory()
     {
         var messages = new List<Message>
@@ -73,9 +91,28 @@ public class DatabaseService
 
         await _connection.InsertAllAsync(messages);
     }
-    public async Task ClearTestChatHistory()
+    public async Task ClearAllChatHistory()
     {
         await _connection.DeleteAllAsync<Message>();
     }
-    
+    public async Task PrintAllMessages()
+    {
+        var messages = await _connection.Table<Message>().ToListAsync();
+
+        foreach (var message in messages)
+        {
+            Debug.WriteLine($"Id: {message.Id}, Text: {message.Text}, Date: {message.Date}, SenderId: {message.SenderId}, ReceiverId: {message.ReceiverId}");
+        }
+    }
+    //same for contacts
+    public async Task PrintAllContacts()
+    {
+        var contacts = await _connection.Table<Contact>().ToListAsync();
+
+        foreach (var contact in contacts)
+        {
+            Debug.WriteLine($"Id: {contact.Id}, FirstName: {contact.FirstName}, LastName: {contact.LastName}");
+        }
+    }
+
 }
