@@ -77,6 +77,11 @@ public class DatabaseService
             await _connection.DeleteAsync(found_message);
         }
     }
+
+
+
+
+    //additional methods for debugging
     public async Task FillTestChatHistory()
     {
         var messages = new List<Message>
@@ -91,10 +96,6 @@ public class DatabaseService
 
         await _connection.InsertAllAsync(messages);
     }
-    public async Task ClearAllChatHistory()
-    {
-        await _connection.DeleteAllAsync<Message>();
-    }
     public async Task PrintAllMessages()
     {
         var messages = await _connection.Table<Message>().ToListAsync();
@@ -104,7 +105,7 @@ public class DatabaseService
             Debug.WriteLine($"Id: {message.Id}, Text: {message.Text}, Date: {message.Date}, SenderId: {message.SenderId}, ReceiverId: {message.ReceiverId}");
         }
     }
-    //same for contacts
+    
     public async Task PrintAllContacts()
     {
         var contacts = await _connection.Table<Contact>().ToListAsync();
@@ -113,6 +114,10 @@ public class DatabaseService
         {
             Debug.WriteLine($"Id: {contact.Id}, FirstName: {contact.FirstName}, LastName: {contact.LastName}");
         }
+    }
+    public async Task ClearAllChatHistory()
+    {
+        await _connection.DeleteAllAsync<Message>();
     }
 
 }

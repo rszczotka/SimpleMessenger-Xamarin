@@ -61,7 +61,6 @@ namespace SimpleMessenger
         }
         private async void EditContactButton_Clicked(object sender, EventArgs e)
         {
-            // Edit the contact
             var menuItem = sender as MenuItem;
             var contact = menuItem.CommandParameter as Contact;
             var addEditContactPage = new AddEditContactPage(contact.Id);
@@ -75,7 +74,6 @@ namespace SimpleMessenger
             bool answer = await DisplayAlert("Usuwanie kontaktu", $"Czy jesteś pewien że chcesz usunąć kontakt {contact.FirstName} {contact.LastName}?", "OK", "Anuluj");
             if (answer)
             {
-                // Delete the contact
                 await _databaseService.DeleteContact(contact.Id);
                 LoadContacts();
             }
