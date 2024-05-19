@@ -13,9 +13,11 @@ namespace SimpleMessenger
     public partial class ChatPage : ContentPage
     {
         private DatabaseService _databaseService;
+        private Contact _contact;
         public ChatPage(Contact contact)
         {
-            this.Title = contact.FullName;
+            _contact = contact; 
+            this.Title = _contact.FullName;
             InitializeComponent();
             InitializeAsync();
             LoadMessages(contact);
@@ -41,6 +43,32 @@ namespace SimpleMessenger
         {
 
         }
+        private async void SendMessageButton_Clicked(object sender, EventArgs e)
+        {
+            var messageText = MessageEntry.Text;
+
+            if (!string.IsNullOrEmpty(messageText))
+            {
+                var message = new Message
+                {
+                    Text = messageText,
+                    SenderId = 0,
+                    ReceiverId = _contact.Id,
+                };
+
+                await _databaseService.AddMessage(message);
+
+                MessageEntry.Text = string.Empty;
+
+                LoadMessages(_contact);
+            }
+        }
+
+        private void AddImageButton_Clicked(object sender, EventArgs e)
+        {
+            // Handle the image icon click event here
+        }
+
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;

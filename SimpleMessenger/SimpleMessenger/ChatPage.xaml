@@ -33,16 +33,32 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
-        <ListView x:Name="MessageListView" 
-                  ItemTemplate="{StaticResource MessageTemplateSelector}"
-                  HasUnevenRows="True"
-                  SeparatorVisibility="None"
-                  ItemSelected="OnItemSelected">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" x:Name="MessageListView" 
+              ItemTemplate="{StaticResource MessageTemplateSelector}"
+              HasUnevenRows="True"
+              SeparatorVisibility="None"
+              ItemSelected="OnItemSelected">
         </ListView>
-        <Label x:Name="NoMessagesLabel" 
-               Text="Brak historii wiadomości z tym użytkownikiem" 
-               IsVisible="False" 
-               HorizontalOptions="CenterAndExpand" 
-               VerticalOptions="CenterAndExpand" />
+        <Label Grid.Row="0" x:Name="NoMessagesLabel" 
+           Text="Brak historii wiadomości z tym użytkownikiem" 
+           IsVisible="False" 
+           HorizontalOptions="CenterAndExpand" 
+           VerticalOptions="CenterAndExpand" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="ImageIcon" Text="🖼️" Clicked="AddImageButton_Clicked"/>
+            <Entry Grid.Column="1" x:Name="MessageEntry" Placeholder="Wiadomość tekstowa"/>
+            <Button Grid.Column="2" x:Name="SendButton" Text="➤" Clicked="SendMessageButton_Clicked"/>
+        </Grid>
+
     </Grid>
+
 </ContentPage>

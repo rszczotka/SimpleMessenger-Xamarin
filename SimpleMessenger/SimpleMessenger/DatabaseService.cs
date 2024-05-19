@@ -55,6 +55,10 @@ public class DatabaseService
     {
         return await _connection.Table<Message>().Where(m => m.ReceiverId == userId || m.SenderId == userId).ToListAsync();
     }
+    public async Task AddMessage(Message message)
+    {
+        await _connection.InsertAsync(message);
+    }
     public async Task FillTestChatHistory()
     {
         var messages = new List<Message>
@@ -73,4 +77,5 @@ public class DatabaseService
     {
         await _connection.DeleteAllAsync<Message>();
     }
+    
 }
