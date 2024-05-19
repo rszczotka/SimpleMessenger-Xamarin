@@ -35,19 +35,33 @@ namespace SimpleMessenger
             NoMessagesLabel.IsVisible = !messages.Any();
         }
 
-        private void EditMessageButton_Clicked(object sender, EventArgs e)
+        private async void EditMessageButton_Clicked(object sender, EventArgs e)
         {
+            var menuItem = (MenuItem)sender;
+            var message = (Message)menuItem.CommandParameter;
 
+            var result = await DisplayPromptAsync("Edycja wiadomości", "Wprowadź nową treść wiadomości", initialValue: message.Text);
+
+            if (result != null)
+            {
+                message.Text = result;
+                await _databaseService.UpdateMessage(message);
+                LoadMessages(_contact);
+            }
         }
+
         private async void DeleteMessageButton_Clicked(object sender, EventArgs e)
         {
             var menuItem = (MenuItem)sender;
             var message = (Message)menuItem.CommandParameter;
-            await DisplayAlert("Message to delete",$"{message.Text} {message.Id.ToString()}", "OK");
 
-            await _databaseService.DeleteMessage(message);
+            var confirm = await DisplayAlert("Usuwanie wiadomości", $"Czy jesteś pewien że chcesz usunąć tą wiadomość: {message.Text}?", "OK", "Anuluj");
 
-            LoadMessages(_contact);
+            if (confirm)
+            {
+                await _databaseService.DeleteMessage(message);
+                LoadMessages(_contact);
+            }
         }
 
         private async void SendMessageButton_Clicked(object sender, EventArgs e)

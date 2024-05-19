@@ -8,8 +8,8 @@
             <DataTemplate x:Key="OutgoingMessageTemplate">
                 <ViewCell>
                     <ViewCell.ContextActions>
-                        <MenuItem Text="Edit" Clicked="EditMessageButton_Clicked" CommandParameter="{Binding .}" />
-                        <MenuItem Text="Delete" Clicked="DeleteMessageButton_Clicked" CommandParameter="{Binding .}" IsDestructive="True" />
+                        <MenuItem Text="Edytuj" Clicked="EditMessageButton_Clicked" CommandParameter="{Binding .}" />
+                        <MenuItem Text="Usuń" Clicked="DeleteMessageButton_Clicked" CommandParameter="{Binding .}" IsDestructive="True" />
                     </ViewCell.ContextActions>
                     <StackLayout HorizontalOptions="End" Padding="10">
                         <Frame BackgroundColor="Green" CornerRadius="20" Padding="10">
@@ -55,7 +55,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" x:Name="ImageIcon" Text="🖼️" Clicked="AddImageButton_Clicked"/>
-            <Entry Grid.Column="1" x:Name="MessageEntry" Placeholder="Wiadomość tekstowa"/>
+            <Entry Grid.Column="1" x:Name="MessageEntry" Placeholder="Wiadomość tekstowa" Completed="SendMessageButton_Clicked"/>
             <Button Grid.Column="2" x:Name="SendButton" Text="➤" Clicked="SendMessageButton_Clicked"/>
         </Grid>
 

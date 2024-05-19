@@ -77,6 +77,15 @@ public class DatabaseService
             await _connection.DeleteAsync(found_message);
         }
     }
+    public async Task UpdateMessage(Message message)
+    {
+        var existingMessage = await _connection.Table<Message>().Where(c => c.Id == message.Id).FirstOrDefaultAsync();
+        if (existingMessage != null)
+        {
+            existingMessage.Text = message.Text;
+            await _connection.UpdateAsync(existingMessage);
+        }
+    }
 
 
 
