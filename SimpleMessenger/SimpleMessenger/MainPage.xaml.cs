@@ -31,15 +31,8 @@ namespace SimpleMessenger
         private async void LoadContacts()
         {
             var contacts = await _databaseService.GetAllContacts();
-
-            if (contacts.Count == 0)
-            {
-                ContactListView.ItemsSource = new List<string> { "Nie znaleziono kontaktów" };
-            }
-            else
-            {
-                ContactListView.ItemsSource = contacts;
-            }
+            NoContactsLabel.IsVisible = !contacts.Any();
+            ContactListView.ItemsSource = contacts;
         }
 
         private async void OnContactTapped(object sender, ItemTappedEventArgs e)

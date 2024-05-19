@@ -7,7 +7,12 @@
         <ToolbarItem Text="Dodaj kontakt" Clicked="AddNewContactButton_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <Label x:Name="NoContactsLabel" 
+                   Text="Nie znaleziono kontaktów" 
+                   IsVisible="False" 
+                   HorizontalOptions="CenterAndExpand" 
+                   VerticalOptions="CenterAndExpand" />
             <ListView x:Name="ContactListView" HasUnevenRows="True" SelectionMode="None" ItemTapped="OnContactTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -20,6 +25,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
