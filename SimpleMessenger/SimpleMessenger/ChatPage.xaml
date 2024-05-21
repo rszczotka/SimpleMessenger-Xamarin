@@ -50,13 +50,11 @@
            VerticalOptions="CenterAndExpand" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="ImageIcon" Text="🖼️" Clicked="AddImageButton_Clicked"/>
-            <Entry Grid.Column="1" x:Name="MessageEntry" Placeholder="Wiadomość tekstowa" Completed="SendMessageButton_Clicked"/>
-            <Button Grid.Column="2" x:Name="SendButton" Text="➤" Clicked="SendMessageButton_Clicked"/>
+            <Entry Grid.Column="0" x:Name="MessageEntry" Placeholder="Wiadomość tekstowa" Completed="SendMessageButton_Clicked"/>
+            <Button Grid.Column="1" x:Name="SendButton" Text="➤" Clicked="SendMessageButton_Clicked"/>
         </Grid>
 
     </Grid>
