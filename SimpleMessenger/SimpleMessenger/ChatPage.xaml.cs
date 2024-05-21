@@ -84,12 +84,6 @@ namespace SimpleMessenger
                 LoadMessages(_contact);
             }
         }
-
-        private void AddImageButton_Clicked(object sender, EventArgs e)
-        {
-            // Handle the image icon click event here
-        }
-
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;

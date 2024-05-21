@@ -95,13 +95,13 @@ public class DatabaseService
     {
         var messages = new List<Message>
         {
-            new Message { Text = "Cześć, masz może zadanie z matematyki", Date = DateTime.Now, SenderId = 6, ReceiverId = 0 },
-            new Message { Text = "No, jasne że tak", Date = DateTime.Now, SenderId = 0, ReceiverId = 6 },
-            new Message { Text = "A podeślesz?", Date = DateTime.Now, SenderId = 6, ReceiverId = 0 },
-            new Message { Text = "nie.", Date = DateTime.Now, SenderId = 0, ReceiverId = 6 },
-            new Message { Text = "Proszę?", Date = DateTime.Now, SenderId = 6, ReceiverId = 0 },
-            new Message { Text = "Proszę???", Date = DateTime.Now, SenderId = 6, ReceiverId = 0 },
-            new Message { Text = "ok", Date = DateTime.Now, SenderId = 6, ReceiverId = 0 }
+            new Message { Text = "Cześć, masz może zadanie z matematyki", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 },
+            new Message { Text = "No, jasne że tak", Date = DateTime.Now, SenderId = 0, ReceiverId = 1 },
+            new Message { Text = "A podeślesz?", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 },
+            new Message { Text = "nie.", Date = DateTime.Now, SenderId = 0, ReceiverId = 1 },
+            new Message { Text = "Proszę?", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 },
+            new Message { Text = "Proszę???", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 },
+            new Message { Text = "ok", Date = DateTime.Now, SenderId = 1, ReceiverId = 0 }
         };
 
         await _connection.InsertAllAsync(messages);
